@@ -3,7 +3,7 @@
 
 **VirtualPet** is a fun and interactive web application where you can take care of a virtual pet. Feed it, play with it, and watch it grow! The project is built using **Flask** (Python) and deployed on **Render**.
 
-🌐 **Live Demo**: [https://virtualpet-yqk0.onrender.com](https://virtualpet-yqk0.onrender.com)
+🌐 **Live Demo**: [[https://virtualpet-yqk0.onrender.com](https://virtualpet-1.onrender.com)]
 
 ---
 
