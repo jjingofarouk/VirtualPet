@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual AI Pet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="theme-default">
+    <div class="theme-selector">
+        <label for="theme">Choose Theme:</label>
+        <select id="theme" onchange="changeTheme()">
+            <option value="default">Default Theme</option>
+            <option value="night">Night Mode</option>
+            <option value="pastel">Pastel</option>
+            <option value="forest">Forest</option>
+            <option value="sunset">Sunset</option>
+        </select>
+    </div>
+
+    <h1>Welcome to Virtual AI Pet!</h1>
+    <h2>Your pet: {{ pet.name }}</h2>
+    <div class="status-container">
+        <p><strong>Mood:</strong> {{ pet.mood }}</p>
+        <p><strong>Hunger:</strong> {{ pet.hunger }}</p>
+        <p><strong>Energy:</strong> {{ pet.energy }}</p>
+        <p><strong>Health:</strong> {{ pet.health }}</p>
+        <p><strong>Happiness:</strong> {{ pet.happiness }}</p>
+        <p><strong>Hygiene:</strong> {{ pet.hygiene }}</p>
+        <p><strong>Social:</strong> {{ pet.social }}</p>
+        <p><strong>Age:</strong> {{ "%.2f"|format(pet.age) }} days</p>
+        <p><strong>Level:</strong> {{ pet.level }}</p>
+        <p><strong>XP:</strong> {{ pet.xp }}/{{ pet.level * 100 }}</p>
+        <p><strong>Personality:</strong> {{ pet.personality }}</p>
+    </div>
+
+    {% if random_event %}
+    <p class="event"><em>Random Event:</em> {{ random_event }}</p>
+    {% endif %}
+
+    {% if level_up_message %}
+    <p class="level-up"><strong>Level Up:</strong> {{ level_up_message }}</p>
+    {% endif %}
+
+    <form action="/action" method="post" class="action-buttons">
+        <button type="submit" name="action" value="feed">Feed</button>
+        <button type="submit" name="action" value="play">Play</button>
+        <button type="submit" name="action" value="rest">Rest</button>
+        <button type="submit" name="action" value="clean">Clean</button>
+        <button type="submit" name="action" value="socialize">Socialize</button>
+    </form>
+
+    <form action="/reset" class="reset-form">
+        <button type="submit">Reset Pet</button>
+    </form>
+
+    <script>
+        function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            document.body.className = `theme-${theme}`;
+            localStorage.setItem('petTheme', theme);
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('petTheme') || 'default';
+            document.getElementById('theme').value = savedTheme;
+            document.body.className = `theme-${savedTheme}`;
+        });
+    </script>
+</body>
+</html>

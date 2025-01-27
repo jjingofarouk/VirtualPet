@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="theme-default">
+    <div class="theme-selector">
+        <label for="theme">Choose Theme:</label>
+        <select id="theme" onchange="changeTheme()">
+            <option value="default">Default Theme</option>
+            <option value="night">Night Mode</option>
+            <option value="pastel">Pastel</option>
+            <option value="forest">Forest</option>
+            <option value="sunset">Sunset</option>
+        </select>
+    </div>
+
+    <h1>Game Over!</h1>
+    
+    <div class="status-container">
+        <p class="game-over-message">{{ message }}</p>
+        <p class="pet-name">Stats for {{ pet.name }}:</p>
+        <p><strong>Mood:</strong> {{ pet.mood }}</p>
+        <p><strong>Hunger:</strong> {{ pet.hunger }}</p>
+        <p><strong>Energy:</strong> {{ pet.energy }}</p>
+    </div>
+
+    <form action="/reset" class="reset-form">
+        <button type="submit">Start Over</button>
+    </form>
+
+    <script>
+        function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            document.body.className = `theme-${theme}`;
+            localStorage.setItem('petTheme', theme);
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('petTheme') || 'default';
+            document.getElementById('theme').value = savedTheme;
+            document.body.className = `theme-${savedTheme}`;
+        });
+    </script>
+</body>
+</html>
